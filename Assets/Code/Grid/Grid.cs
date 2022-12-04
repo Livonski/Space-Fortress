@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-
-    [SerializeField] private Vector2Int gridSize;
     [SerializeField] private int nodeSize;
+    [SerializeField] private GameObject defaultTile;
+    private Vector2Int gridSize;
+
+    private Vector2 worldBottomLeft;
 
     private GameObject[,] grid;
-    public void CreateGrid(GameObject defaultTile)
+    public void CreateGrid(Vector2Int GridSize)
     {
-        grid = new GameObject[gridSize.x, gridSize.y];
-        Vector2 worldBottomLeft = transform.position - Vector3.right * gridSize.x / 2 - Vector3.up * gridSize.y / 2;
+        gridSize = GridSize;
+        grid = new GameObject[GridSize.x, GridSize.y];
+        worldBottomLeft = transform.position - Vector3.right * GridSize.x / 2 - Vector3.up * GridSize.y / 2;
+    }
 
-        for (int y = 0; y < gridSize.y; y++)
-        {
-            for (int x = 0; x < gridSize.x; x++)
-            {
-                Vector3 worldPoint = worldBottomLeft + Vector2.right * (x * nodeSize + nodeSize/2) + Vector2.up * (y * nodeSize + nodeSize/2);
-                GameObject newGridObject = Instantiate(defaultTile, worldPoint, Quaternion.identity);
-                newGridObject.name = "Tile " + x + " " + y;
-                newGridObject.transform.parent = transform;
-                newGridObject.GetComponent<Tile>().AddEntity(new Entity(newGridObject.GetComponent<SpriteRenderer>().sprite));
-                grid[x, y] = newGridObject;
-            }
-        }
+    public void AddObjectToGrid(int x, int y, GameObject Tile)
+    {
+        Vector3 worldPoint = worldBottomLeft + Vector2.right * (x * nodeSize + nodeSize / 2) + Vector2.up * (y * nodeSize + nodeSize / 2);
+        GameObject newGridObject = Instantiate(Tile, worldPoint, Quaternion.identity);
+        newGridObject.name = "Tile " + x + " " + y;
+        newGridObject.transform.parent = transform;
+        newGridObject.GetComponent<Tile>().AddEntity(new Entity(newGridObject.GetComponent<SpriteRenderer>().sprite));
+        grid[x, y] = newGridObject;
     }
 
     public void AddEntity(Entity entity, Vector2Int TilePosition)
