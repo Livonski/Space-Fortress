@@ -514,9 +514,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainGrid: {fileID: 994264541}
-  gridSize: {x: 40, y: 40}
+  gridSize: {x: 200, y: 200}
+  noisePersistency: 0.5
   noiseScale: 10
-  worldSeed: 0
+  worldSeed: 100
+  octaves: 3
+  shapesAmount: {x: 2, y: 4}
+  minimalShapeRadius: 50
+  asteroidTexture: {fileID: 0}
   tilesProbability:
     serializedVersion: 2
     m_Curve:
@@ -530,7 +535,7 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.40028054
+      time: 0.9
       value: 1
       inSlope: 0.3755839
       outSlope: 0.3755839
@@ -551,7 +556,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   possibleTiles:
-  - {fileID: 776900319401188406, guid: 5ac0bd44b8aa62246bf57289563f4bea, type: 3}
+  - {fileID: 776900319401188406, guid: 781473c9d7b443e4bbee3abf4a5f5104, type: 3}
   - {fileID: 776900319401188406, guid: a5768a240dbf33e4d85a1d0b347276af, type: 3}
   playerSprite: {fileID: -1629675355, guid: 6ed5495a40ec4554d975c448cbf01978, type: 3}
   playerPosition: {x: 20, y: 20}
@@ -643,7 +648,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 994264543}
         m_TargetAssemblyTypeName: WorldGenerator, Assembly-CSharp
-        m_MethodName: FillWorld
+        m_MethodName: RedrawWorld
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -709,7 +714,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2086802262
 MonoBehaviour:
   m_ObjectHideFlags: 0

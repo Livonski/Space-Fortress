@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-    [SerializeField] private int nodeSize;
+    [SerializeField] private float nodeSize;
     [SerializeField] private GameObject defaultTile;
     private Vector2Int gridSize;
 
@@ -20,6 +21,10 @@ public class Grid : MonoBehaviour
 
     public void AddObjectToGrid(int x, int y, GameObject Tile)
     {
+        if (grid[x,y] != null)
+        {
+            Destroy(grid[x, y]);
+        }
         Vector3 worldPoint = worldBottomLeft + Vector2.right * (x * nodeSize + nodeSize / 2) + Vector2.up * (y * nodeSize + nodeSize / 2);
         GameObject newGridObject = Instantiate(Tile, worldPoint, Quaternion.identity);
         newGridObject.name = "Tile " + x + " " + y;
